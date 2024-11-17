@@ -9,8 +9,6 @@ import UIKit
 
 class ViewController: UIViewController {
     private lazy var animator = UIDynamicAnimator(referenceView: view)
-    private lazy var snap = UISnapBehavior(item: resultView, snapTo: view.center)
-    
     private lazy var resultView: UIView = {
         let view = UIView(frame: CGRect(origin: .zero, size: CGSize(width: 80, height: 80)))
         view.center = self.view.center
@@ -26,11 +24,11 @@ class ViewController: UIViewController {
        
         let tap = UITapGestureRecognizer(target: self, action: #selector(viewTapped))
         view.addGestureRecognizer(tap)
-        
-        animator.addBehavior(snap)
     }
     
    @objc private func viewTapped(touch: UITapGestureRecognizer) {
-       snap.snapPoint = touch.location(in: view)
+       animator.removeAllBehaviors()
+       let snap = UISnapBehavior(item: resultView, snapTo: touch.location(in: view))
+       animator.addBehavior(snap)
     }
 }
