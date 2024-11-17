@@ -29,6 +29,7 @@ class ViewController: UIViewController {
    @objc private func viewTapped(touch: UITapGestureRecognizer) {
        animator.removeAllBehaviors()
        let snap = UISnapBehavior(item: resultView, snapTo: touch.location(in: view))
+       snap.damping = 0.7
        animator.addBehavior(snap)
     }
 }
